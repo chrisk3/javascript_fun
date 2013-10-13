@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Interactive Quiz</title>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+
+		$(document).ready(function() {
+
+			// function to create and track the entire quiz. Accepts no arguments and return no values (all info is dynamically appended to document elements)
+			function quiz_process() {
+				var count = 0;
+				// array of objects storing the question, choices, and correct answer for each question
+				var all_questions = [
+					{question: "Which US state is the largest?", choices: ["California", "Arizona", "Alaska", "Texas"], correct: 2}, 
+					{question: "Which US state is the furthest west?", choices: ["Alaska", "Washington", "Hawaii"], correct: 0}, 
+					{question: "How many US states have the Gulf of Mexico on one of its borders?", choices: [2, 4, 5], correct: 2},
+					{question: "There are 50 total states.", choices: ["True", "False"], correct: 0},
+					{question: "What is the capital city of Texas?", choices: ["Dallas", "Houston", "Austin"], correct: 2},
+					{question: "Which of these US cities is located on a peninsula?", choices: ["Las Vegas", "San Francisco", "Kansas City", "Atlanta"], correct: 1}
+				];
+				var answers = [];
+				var score = [];
+				var len = all_questions.length;
+				var num_choices = 0;
+
+				// responsible for appending the question + radio button for choices. accepts a var count which tells the function which index from all_questions array. 
+				function quiz(count) {
+					if (count < len) {
+						for (var i = 0; i < 1; i++) {
+							$('#target').append("<p>" + all_questions[count].question + "</p>");
+							num_choices = all_questions[count].choices.length;
+							for (var j = 0; j < num_choices; j++) {
+								$('#target').append("<input type='radio' name='question" + (i) + "' value='" + j + "'>" + all_questions[count].choices[j]);
+							};
+						};
+					};
+				};
+
+				quiz(0);
+
+				// 'grading' aspect of functions. answers are stored in an array and evaluated to see if they are correct.
+				$('#next').click(function() {
+					var choice = $("input[type='radio']:checked").val()
+					answers.push(choice);
+
+					if (choice == all_questions[count].correct) {
+						score.push(choice);
+					}
+
+					count += 1;
+					$('#target').html('');
+
+					// reports the number they got right
+					if (count == len) {
+						$('#target').append("<p>" + "You got " + score.length + " out of " + len + "</p>");
+					} else {
+						quiz(count);
+					}
+				});
+			};
+
+			quiz_process();
+
+		}); //end ready
+
+	</script>
+</head>
+<body>
+
+	<div id="questions">
+		
+		<div id="target"></div>
+
+		<button id="next">Next</button>
+		
+	</div>
+	
+</body>
+</html>
