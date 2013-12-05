@@ -31,14 +31,17 @@
 
     <script>
 
-
+    //function to adjust coordinates of the ninja
     function gameLoop() {
         $('#character').css({left: x+"px", top: y+"px"});
     }
 
+    //run gameloop function every 150ms
     setInterval(gameLoop, 150);
 
     var x=0, y=0;
+    //each outer if/elseif checks for which arrow key was pressed and confirms that the ninja won't move outside of the boundary
+    //each inner if block changes the img source if X or Y coordinate is even/odd. This adjusts the picture to create the walking motion on the ninja.
     document.onkeydown = function(e) {
         if (e.keyCode == 37 && x - 9 > 0) {
             x = x-11;
@@ -70,10 +73,8 @@
             }
         }
 
-        console.log(e.keyCode, x);
     }
 
-    console.log(document);
     </script>
 
 </body>

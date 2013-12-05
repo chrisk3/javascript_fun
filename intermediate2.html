@@ -14,11 +14,9 @@
 
     <script>
 
-    //because we haven't learned how to do OOP in Javascript, we're going to just use regular functions.  Know that with OOP, there is even a better way to do this
     var counter = 1;
     var circles = {};
 
-    //read: http://stackoverflow.com/questions/3642035/jquerys-append-not-working-with-svg-element
     //create an SVG element
     function makeSVG(tag, attrs) {
         var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -40,7 +38,6 @@
               style: "fill: white"
             });
 
-        //the key will be the HTML id and the value will be the radius
         circles['circle_'+counter] = { radius: r };
 
         counter++;
@@ -89,6 +86,7 @@
         updateCircles();
     }
 
+    //trigger the mainLoop function when we click
     // document.onclick = function(e) {
     //     var x = e.clientX;
     //     var y = e.clientY;
@@ -96,6 +94,7 @@
     //     mainLoop();
     // }
 
+    //trigger mainLoop function when the mouse moves
     document.onmousemove = function(e) {
         var x = e.screenX;
         var y = e.screenY;
@@ -105,8 +104,6 @@
     
     //execute the mainLoop funtion every 30 milliseconds
     // setInterval(mainLoop, 30);
-
-    console.dir(document);
 
     </script>
 
