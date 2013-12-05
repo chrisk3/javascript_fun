@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>Character Game</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <style type="text/css">
+
+        #container {
+            border: 5px solid black;
+            height: 500px;
+            margin: 25px 0 0 25px;
+            position: relative;
+            width: 500px;
+        }
+        #character {
+            position: absolute;
+                top: 0px;
+                left: 0px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div id="character" style="position:absolute; top:0px; left:0px;">
+            <img src="img/down1.png" alt="ninja">
+        </div>
+
+    </div>
+
+    <script>
+
+
+    function gameLoop() {
+        $('#character').css({left: x+"px", top: y+"px"});
+    }
+
+    setInterval(gameLoop, 150);
+
+    var x=0, y=0;
+    document.onkeydown = function(e) {
+        if (e.keyCode == 37 && x - 9 > 0) {
+            x = x-11;
+            if (x % 2 == 0) {
+                $('#character img').attr('src', 'img/left1.png');
+            } else {
+                $('#character img').attr('src', 'img/left2.png');
+            }
+        } else if(e.keyCode == 39 && x + 9 < 440) {
+            x = x+11;
+            if (x % 2 == 0) {
+                $('#character img').attr('src', 'img/right1.png');
+            } else {
+                $('#character img').attr('src', 'img/right2.png');
+            }
+        } else if (e.keyCode == 38 && y - 9 > 0) {
+            y = y-11;
+            if (y % 2 == 0) {
+                $('#character img').attr('src', 'img/top1.png');
+            } else {
+                $('#character img').attr('src', 'img/top2.png');
+            }
+        } else if (e.keyCode == 40 && y + 9 < 410) {
+            y = y+11;
+            if (y % 2 == 0) {
+                $('#character img').attr('src', 'img/down1.png');
+            } else {
+                $('#character img').attr('src', 'img/down2.png');
+            }
+        }
+
+        console.log(e.keyCode, x);
+    }
+
+    console.log(document);
+    </script>
+
+</body>
+</html>
