@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS Pig Latin Translator</title>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+
+		$(document).ready(function() {
+
+			$('#english_input').submit(function() {
+				var text = $('#translate').val();
+				var vowels = ['a', 'e', 'i', 'o', 'u'];
+				var punctuation = [',', '.', ';', ':'];
+				var text_array = text.split(' ');
+				var translated = '';
+				var len = text_array.length;
+
+				// traverse the entire inputted string that has been split into an array
+				for (var i = 0; i < len; i++) {
+					// if the first letter is a vowel
+					if (vowels.indexOf(text_array[i].charAt(0)) !== -1) {
+						// if the last letter is a punctuation character
+						if (punctuation.indexOf(text_array[i].substr(-1)) !== -1) {
+							var last_char = text_array[i].substr(-1);
+							var remaining = text_array[i].substr(0, (text_array[i].length - 2));
+							translated += remaining + 'yay' + last_char + ' ';
+						  // if the last letter is not a puncuation character
+						} else {
+							var remaining = text_array[i].substr(0);
+							translated += remaining + 'yay ';
+						}
+					  // if the first letter is not a vowel
+					} else {
+						// if the last letter is a punctuation character
+						if (punctuation.indexOf(text_array[i].substr(-1)) !== -1) {
+							var last_char = text_array[i].substr(-1);
+							var first_char = text_array[i].slice(0, 1).toLowerCase();
+							var remaining = text_array[i].substr(1, (text_array[i].length - 2));
+							translated += remaining + first_char + 'ay' + last_char + ' ';
+						  // if the last letter is not a puncuation character
+						} else {
+							var first_char = text_array[i].slice(0, 1).toLowerCase();
+							var remaining = text_array[i].substr(1);
+							translated += remaining + first_char + 'ay ';
+						}
+					}
+				}
+				// trim off first character and capitalize it
+				var cap = translated.slice(0, 1);
+				cap = cap.toUpperCase();
+				translated = translated.substr(1);
+
+				// append the translated string to the target div
+				$('#target').html('');
+				$('#target').append("<p>" + cap + translated + "</p>");
+
+				return false;
+			}); //end submit
+
+		}); //end ready
+
+	</script>
+</head>
+<body>
+
+	<div id="enter">
+		<h3>Enter the Phrase to be Translated:</h3>
+		<form action="process.php" id="english_input" method="post">
+			<textarea name="translate" id="translate" cols="40" rows="8"></textarea><br>
+			<input type="submit" value="Translate">
+		</form>
+	</div>
+
+	<h3>Translated:</h3>
+	<div id="target"></div>
+	
+</body>
+</html>

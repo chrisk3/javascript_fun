@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS Temperature Converter</title>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+
+		$(document).ready(function() {
+
+			$('#convert_form').submit(function(e) {
+				return false;
+			});
+
+			$('#convert_form').submit(function() {
+				var temp = $('#temp').val();
+				var type = $('#type').val();
+
+				if (type === 'f') {
+					var new_temp = Math.floor((temp - 32) * (5/9));
+					var units = "°C";
+				} else {
+					var new_temp = Math.floor(temp * (9/5) + 32);
+					var units = "°F";
+				}
+
+				$('#target').html("<p>" + new_temp + units + "</p>");
+			});
+
+		});
+
+	</script>
+</head>
+<body>
+	
+	<div id="form">
+		<form id="convert_form" method="post">
+			<input type="text" id="temp">
+			<select id="type">
+				<option value="f">Fahrenheit</option>
+				<option value="c">Celsius</option>
+			</select>
+			<input type="submit" value="Convert">
+		</form>
+	</div>
+
+	<div id="target">
+		
+	</div>
+
+</body>
+</html>
